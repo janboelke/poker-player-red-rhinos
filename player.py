@@ -74,6 +74,7 @@ class Player:
         all_cards_ranking = self.convert_to_ranks(all_cards)
         occurances = {}
         suits = {}
+        score = 0
         for card in all_cards:
             if card['suit'] in suits.keys():
                 suits[card['suit']] += 1
@@ -87,7 +88,7 @@ class Player:
                 occurances[card] += 1
             else:
                 occurances[card] = 1
-        score = 0
+    
         key_list = list(occurances.keys())
         val_list = list(occurances.values())
         if val_list.count(2) == 1 and self.is_pair_on_our_hand(game_state):
