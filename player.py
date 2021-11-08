@@ -49,8 +49,14 @@ class Player:
         else:
             rank1 = self.rank_order[hole_cards[0]["rank"]]
             rank2 = self.rank_order[hole_cards[1]["rank"]]
-            if (rank1 + rank2) > 4:
+            if (rank1 + rank2) > 14:
                 self.raise_amount = game_state["current_buy_in"] - self.our_player["bet"]
+            elif (rank1 + rank2) > 4:
+                if game_state["current_buy_in"] > 300:
+                    self.raise_amount = 0
+                else:
+                    self.raise_amount = game_state["current_buy_in"] - self.our_player["bet"]
+
         
         
         if (self.raise_amount > self.our_player['stack']):
