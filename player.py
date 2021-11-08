@@ -53,13 +53,17 @@ class Player:
             self.raise_amount = game_state["current_buy_in"] * 2
         elif is_suite:
             self.raise_amount = game_state["current_buy_in"] - self.our_player["bet"]
+            if game_state["current_buy_in"] > 100:
+                self.raise_amount = 0
         else:
             rank1 = self.rank_order[hole_cards[0]["rank"]]
             rank2 = self.rank_order[hole_cards[1]["rank"]]
             if (rank1 + rank2) > 14:
                 self.raise_amount = game_state["current_buy_in"] - self.our_player["bet"]
+                if game_state["current_buy_in"] > 100:
+                    self.raise_amount = 0
             elif (rank1 + rank2) > 4:
-                if game_state["current_buy_in"] > 300:
+                if game_state["current_buy_in"] > 50:
                     self.raise_amount = 0
                 else:
                     self.raise_amount = game_state["current_buy_in"] - self.our_player["bet"]
