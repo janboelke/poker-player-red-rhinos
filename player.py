@@ -24,15 +24,17 @@ class Player:
         self.our_player = game_state["players"][game_state["in_action"]]
         self.compute_hand(game_state)
         if (game_state["round"] == 0):
-            # test edit from Jan!
             self.handle_preflop(game_state)
         else:
             score = self.compute_hand(game_state)
             if (score != 0):
-                self.raise_amount = game_state["current_buy_in"] - self.our_player["bet"] + game_state["minimum_raise"]
+                self.raise_amount = game_state["current_buy_in"] - self.our_player["bet"] + game_state["minimum_raise"] * score
             else:
                 self.raise_amount = 0
 
+        if (self.raise_amount > self.our_player['stack']):
+            self.raise_amount = self.our_player['stack']
+        
         return self.raise_amount
 
     def showdown(self, game_state):
@@ -83,7 +85,7 @@ class Player:
                 occurances[card] += 1
             else:
                 occurances[card] = 1
-        score = 0;
+        score = 0
         key_list = list(occurances.keys())
         val_list = list(occurances.values())
         if val_list.count(2) == 1:
