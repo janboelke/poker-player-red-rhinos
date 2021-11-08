@@ -23,7 +23,7 @@ class Player:
     def betRequest(self, game_state):
         self.our_player = game_state["players"][game_state["in_action"]]
         self.compute_hand(game_state)
-        if (game_state["round"] == 0):
+        if (len(game_state["community_cards"])==0):
             self.handle_preflop(game_state)
         else:
             score = self.compute_hand(game_state)
