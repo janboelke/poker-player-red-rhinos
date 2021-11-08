@@ -29,7 +29,7 @@ class Player:
             score = self.compute_hand(game_state)
             if (score != 0):
                 self.raise_amount = game_state["current_buy_in"] - self.our_player["bet"] + game_state["minimum_raise"] * score
-                if (self.raise_amount * score) > (self.our_player['stack']/(8-score)):
+                if (self.raise_amount) > (self.our_player['stack']/(8-score)):
                     self.raise_amount = 0 
             else:
                 self.raise_amount = 0
