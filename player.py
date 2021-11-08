@@ -43,9 +43,12 @@ class Player:
         self.raise_amount = 0
         hole_cards = self.our_player["hole_cards"]
         is_pair = hole_cards[0]["rank"] == hole_cards[1]["rank"]
+        is_suite = hole_cards[0]["suit"] == hole_cards[1]["suit"]
         if is_pair:
             # raise
             self.raise_amount = game_state["current_buy_in"] * 2
+        elif is_suite:
+            self.raise_amount = game_state["current_buy_in"] - self.our_player["bet"]
         else:
             rank1 = self.rank_order[hole_cards[0]["rank"]]
             rank2 = self.rank_order[hole_cards[1]["rank"]]
@@ -63,11 +66,20 @@ class Player:
             self.raise_amount = self.our_player['stack']
 
     def compute_hand(self, game_state):
-        all_cards = self.our_player["hole_cards"] + game_state['community_cards']    
+        all_cards = self.our_player["hole_cards"] + game_state['community_cards']   
         all_cards_ranking = []
         for card in all_cards:
             all_cards_ranking += [self.rank_order[card['rank']]]
         occurances = {}
+        suits = {}
+        for card in all_cards:
+            if card['suit'] in suits.keys():
+                suits[card['suit']] += 1
+            else:
+                suits[card['suit']] = 1
+        if 5 in list(suits.values()):
+            score = 5
+        
         for card in all_cards_ranking:
             if card in occurances.keys():
                 occurances[card] += 1
@@ -83,18 +95,16 @@ class Player:
         elif val_list.count(3) == 1:
             score = 3
         elif val_list.count(4) == 1:
-            score = 5
+            score = 7
         
         if val_list.count(2) == 1 and val_list.count(3) == 1:
-            score = 4
+            score = 6
         
-
-
         return score
 
-        
-        
-                  
-
-
-
+    def have_straight(self, all_cards_ranking):
+        sorted_rankings = sorted(all_cards_ranking)
+        for i in range(1, len(sorted_rankings)):
+            if sorted_rankings[i-1] != sorted_rankings[i]:
+                return False
+        return True

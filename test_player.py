@@ -106,6 +106,14 @@ class PlayerTest(unittest.TestCase):
         """Test the showdown method."""
         self.player.showdown(game_state=self.game_state)
 
+    def test_have_straight(self):
+        """Test if we can have a straight."""
+        hole_cards = [2,3]
+        community_cards = [4,5,6]
+        self.assertTrue(self.player.have_straight(hole_cards + community_cards))
+
+
+
 if __name__ == "__main__":
     # Automatically executes all test methods (starting with test_) in unittest.TestCase classes
     unittest.main()
