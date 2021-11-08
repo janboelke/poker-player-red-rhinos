@@ -49,7 +49,7 @@ class Player:
         else:
             rank1 = self.rank_order[hole_cards[0]["rank"]]
             rank2 = self.rank_order[hole_cards[1]["rank"]]
-            if (rank1 + rank2) > 14:
+            if (rank1 + rank2) > 4:
                 self.raise_amount = game_state["current_buy_in"] - self.our_player["bet"]
         
         
@@ -77,7 +77,13 @@ class Player:
         elif val_list.count(3) == 1:
             score = 3
         elif val_list.count(4) == 1:
+            score = 5
+        
+        if val_list.count(2) == 1 and val_list.count(3) == 1:
             score = 4
+        
+
+
         return score
 
         
