@@ -134,6 +134,37 @@ class PlayerTest(unittest.TestCase):
         community_cards = [2,5,6]
         self.assertTrue(self.player.is_pair_on_our_hand_impl(hole_cards, community_cards))
 
+    def test_q5_with_9_3_10(self):
+        self.game_state['community_cards'] = [
+                {
+                    "rank": "9",
+                    "suit": "spades"
+                },
+                {
+                    "rank": "3",
+                    "suit": "spades"
+                },
+                {
+                    "rank": "10",
+                    "suit": "clubs"
+                }
+            ]
+        self.game_state['players'][1]['hole_cards'] = [
+                {
+                    "rank": "Q",
+                    "suit": "spades"
+                },
+                {
+                    "rank": "5",
+                    "suit": "spades"
+                },
+        ]
+
+        self.assertEqual(0, self.player.betRequest(self.game_state))
+
+
+
+
 
 if __name__ == "__main__":
     # Automatically executes all test methods (starting with test_) in unittest.TestCase classes
