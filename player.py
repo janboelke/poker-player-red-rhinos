@@ -100,6 +100,8 @@ class Player:
         if val_list.count(2) == 1 and val_list.count(3) == 1:
             score = 6
         
+        if self.have_straight(all_cards_ranking):
+            score = 4
         return score
 
     def have_straight(self, all_cards_ranking):
