@@ -112,6 +112,14 @@ class PlayerTest(unittest.TestCase):
         community_cards = [4,5,6]
         self.assertTrue(self.player.have_straight(hole_cards + community_cards))
 
+        hole_cards = [2,6]
+        community_cards = [3,6,5]
+        self.assertFalse(self.player.have_straight(hole_cards + community_cards))
+        
+        hole_cards = [2,6]
+        community_cards = [3,4,5]
+        self.assertTrue(self.player.have_straight(hole_cards + community_cards))
+
 
 
 if __name__ == "__main__":

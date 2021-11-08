@@ -105,6 +105,6 @@ class Player:
     def have_straight(self, all_cards_ranking):
         sorted_rankings = sorted(all_cards_ranking)
         for i in range(1, len(sorted_rankings)):
-            if sorted_rankings[i-1] != sorted_rankings[i]:
+            if sorted_rankings[i-1] + 1 != sorted_rankings[i]:
                 return False
         return True
