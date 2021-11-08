@@ -50,7 +50,15 @@ class Player:
         if (self.raise_amount > self.our_player['stack']):
             self.raise_amount = self.our_player['stack']
         
-                     
+    def is_pair(self, game_state):
+        hole_cards = self.our_player["hole_cards"]
+        is_pair = hole_cards[0]["rank"] == hole_cards[1]["rank"]
+        all_cards = hole_cards
+
+
+        return is_pair
+
+                  
 
 
 
