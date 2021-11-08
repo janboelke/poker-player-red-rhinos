@@ -20,23 +20,37 @@ class Player:
     def betRequest(self, game_state):
         self.our_player = game_state["players"][game_state["in_action"]]
         if (game_state["round"] == 0):
-            return self.handle_preflop(game_state)
-        return 0
+            self.handle_preflop(game_state)
+        else:
+            if (self.raise_amount != 0):
+                self.raise_amount = game_state["current_buy_in"] - self.our_player["bet"]
+            else:
+                self.raise_amount = 0
+
+        return self.raise_amount
 
     def showdown(self, game_state):
         pass
 
     def handle_preflop(self, game_state):
         
+        self.raise_amount = 0
         hole_cards = self.our_player["hole_cards"]
         is_pair = hole_cards[0]["rank"] == hole_cards[1]["rank"]
         if is_pair:
             # raise
-            raise_amount = game_state["current_buy_in"] * 2
-            if (raise_amount > self.our_player['stack']):
-                raise_amount = self.our_player['stack']
-            return raise_amount
+            self.raise_amount = game_state["current_buy_in"] * 2
+        else:
+            rank1 = self.rank_order[hole_cards[0]["rank"]]
+            rank2 = self.rank_order[hole_cards[1]["rank"]]
+            if (rank1 + rank2) > 14:
+                self.raise_amount = game_state["current_buy_in"] - self.our_player["bet"]
+        
+        
+        if (self.raise_amount > self.our_player['stack']):
+            self.raise_amount = self.our_player['stack']
+        
+                     
 
-        return 0
 
 
