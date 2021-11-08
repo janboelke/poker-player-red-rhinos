@@ -29,7 +29,7 @@ class Player:
         else:
             score = self.compute_hand(game_state)
             if (score != 0):
-                self.raise_amount = game_state["current_buy_in"] - self.our_player["bet"] + 2
+                self.raise_amount = game_state["current_buy_in"] - self.our_player["bet"] + game_state["minimum_raise"]
             else:
                 self.raise_amount = 0
 
