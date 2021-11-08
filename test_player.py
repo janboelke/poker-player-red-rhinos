@@ -120,6 +120,19 @@ class PlayerTest(unittest.TestCase):
         community_cards = [3,4,5]
         self.assertTrue(self.player.have_straight(hole_cards + community_cards))
 
+    def test_is_pair_on_our_hand_impl(self):
+        """Test if the pair is only present for us."""
+        hole_cards = [2,2]
+        community_cards = [4,5,6]
+        self.assertTrue(self.player.is_pair_on_our_hand_impl(hole_cards, community_cards))
+        
+        hole_cards = [2,3]
+        community_cards = [4,5,6]
+        self.assertFalse(self.player.is_pair_on_our_hand_impl(hole_cards, community_cards))
+        
+        hole_cards = [2,3]
+        community_cards = [2,5,6]
+        self.assertTrue(self.player.is_pair_on_our_hand_impl(hole_cards, community_cards))
 
 
 if __name__ == "__main__":

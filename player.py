@@ -67,9 +67,7 @@ class Player:
 
     def compute_hand(self, game_state):
         all_cards = self.our_player["hole_cards"] + game_state['community_cards']   
-        all_cards_ranking = []
-        for card in all_cards:
-            all_cards_ranking += [self.rank_order[card['rank']]]
+        all_cards_ranking = self.convert_to_ranks(all_cards)
         occurances = {}
         suits = {}
         for card in all_cards:
@@ -108,3 +106,26 @@ class Player:
             if sorted_rankings[i-1] + 1 != sorted_rankings[i]:
                 return False
         return True
+
+    def is_pair_on_our_hand(self, game_state):
+        hole_cards = self.our_player['hole_cards']
+        hole_cards_ranking = self.convert_to_ranks(hole_cards)
+        community_ranks = self.convert_to_ranks(game_state['community_cards'])
+        return self.is_pair_on_our_hand_impl(hole_cards_ranking, community_ranks)
+        
+    def convert_to_ranks(self, cards):
+        cards_ranking = []
+        for card in cards:
+            cards_ranking += [self.rank_order[card['rank']]]
+        return cards_ranking
+
+    def is_pair_on_our_hand_impl(self, hole_ranking, community_rankings):
+        if hole_ranking[0] == hole_ranking[1]:
+            return True
+
+        for card in hole_ranking:
+            if card in community_rankings:
+                return True
+        
+        return False
+            
