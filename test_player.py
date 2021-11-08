@@ -23,7 +23,7 @@ class PlayerTest(unittest.TestCase):
             "bet_index":0,                                  # Index of the betting opportunity within a round
             "small_blind": 10,                              # The small blind in the current round. The big blind is twice the
                                                             #     small blind
-            "current_buy_in": 320,                          # The amount of the largest current bet from any one player
+            "current_buy_in": 10,                          # The amount of the largest current bet from any one player
             "pot": 400,                                     # The size of the pot (sum of the player bets)
             "minimum_raise": 240,                           # Minimum raise amount. To raise you have to return at least:
                                                             #     current_buy_in - players[in_action][bet] + minimum_raise
@@ -52,7 +52,7 @@ class PlayerTest(unittest.TestCase):
                     "status": "active",
                     "version": "Default random player",
                     "stack": 1590,
-                    "bet": 80,
+                    "bet": 5,
                     "hole_cards": [                         # The cards of the player. This is only visible for your own player
                                                             #     except after showdown, when cards revealed are also included.
                         {
@@ -76,7 +76,7 @@ class PlayerTest(unittest.TestCase):
             ],
             "community_cards": [                            # Finally the array of community cards.
                 {
-                    "rank": "4",
+                    "rank": "K",
                     "suit": "spades"
                 },
                 {
