@@ -88,16 +88,16 @@ class Player:
         score = 0
         key_list = list(occurances.keys())
         val_list = list(occurances.values())
-        if val_list.count(2) == 1:
+        if val_list.count(2) == 1 and self.is_pair_on_our_hand(game_state):
             score = 1
-        elif val_list.count(2) == 2:
+        elif val_list.count(2) == 2 and self.is_pair_on_our_hand(game_state):
             score = 2
-        elif val_list.count(3) == 1:
+        elif val_list.count(3) == 1 and self.is_pair_on_our_hand(game_state):
             score = 3
-        elif val_list.count(4) == 1:
+        elif val_list.count(4) == 1 and self.is_pair_on_our_hand(game_state):
             score = 7
         
-        if val_list.count(2) == 1 and val_list.count(3) == 1:
+        if val_list.count(2) == 1 and val_list.count(3) == 1 and self.is_pair_on_our_hand(game_state):
             score = 6
         
         if self.have_straight(all_cards_ranking):
