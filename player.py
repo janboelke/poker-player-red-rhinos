@@ -52,6 +52,9 @@ class Player:
         if is_pair:
             # raise
             self.raise_amount = game_state["current_buy_in"] * 2
+            if (self.rank_order[hole_cards[0]["rank"]] > 10):
+                self.raise_amount = game_state["current_buy_in"] * 5
+                
         elif is_suite:
             self.raise_amount = game_state["current_buy_in"] - self.our_player["bet"]
             if game_state["current_buy_in"] > 100:
